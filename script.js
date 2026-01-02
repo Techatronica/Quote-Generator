@@ -1,7 +1,16 @@
-window.console.log("Testing console.log");
-var now = 2000;
-var yearJohn = 1989;
-var fullAge = 18;
+//Get Quote From API
+async function getQuote() {
+    const proxyUrl = 'http://cors-anywhere.herokuapp.com/'
+    const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
+    try {
+        const response = await fetch(proxyUrl + apiUrl);
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        getQuote();
+        console.log('Whoops, no quote', error);
+    }
+}
 
-var isfullAge = now - yearJohn >= fullAge;
-console.log(isfullAge);
+//On Load; can't be invoked/called before function declaration due to hoisting.
+getQuote();
