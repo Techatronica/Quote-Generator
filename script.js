@@ -5,11 +5,25 @@ const quoteText = document.getElementById("quote");
 const quoteAuthor = document.getElementById("author");
 const twitterButton = document.getElementById("twitter");
 const newQuoteButton = document.getElementById("new-quote");
+const loader = document.getElementById("loader");
 
 let apiQuotes = [];
 
+//Show Loading
+function loading() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+
+//Hide Loading
+function complete() {
+  quoteContainer.hidden = false;
+  loader.hidden = true;
+}
+
 //Show new Quote
 function newQuote() {
+  loading();
   //Pick a random quote
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
   // console.log(quote);
@@ -25,12 +39,15 @@ function newQuote() {
   } else {
     quoteText.classList.remove("long-quote");
   }
+  //Set Quote, Hide Loader
   quoteText.textContent = quote.text;
   quoteAuthor.textContent = quote.author;
+  complete();
 }
 
 //Get Quote From API
 async function getQuote() {
+  loading();
   //   const proxyUrl = "http://cors-anywhere.herokuapp.com/";
   const apiUrl = "https://jacintodesign.github.io/quotes-api/data/quotes.json";
   try {
