@@ -41,6 +41,15 @@ async function getQuote() {
     //catch error
   }
 }
+// Tweet Quote
+function tweetQuote() {
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${quoteAuthor.textContent}`;
+  window.open(twitterUrl, "_blank");
+}
+
+//Event Listeners
+newQuoteButton.addEventListener("click", newQuote);
+twitterButton.addEventListener("click", tweetQuote);
 
 //On Load; can't be invoked/called before function declaration due to hoisting.
 getQuote();
